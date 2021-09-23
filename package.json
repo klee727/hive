@@ -1,0 +1,19 @@
+{
+  "name": "hive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "cron-parser": "^4.0.0",
+    "cron-schedule": "^3.0.3",
+    "glob": "^7.2.0",
+    "js-event-bus": "^1.1.1",
+    "nats": "^2.2.0"
+  }
+}

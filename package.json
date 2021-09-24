@@ -12,8 +12,14 @@
     "bunyan": "^1.8.15",
     "cron-parser": "^4.0.0",
     "cron-schedule": "^3.0.3",
+    "ethers": "^5.4.7",
     "glob": "^7.2.0",
     "js-event-bus": "^1.1.1",
+    "keyv": "^4.0.3",
+    "keyv-file": "^0.2.0",
     "nats": "^2.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

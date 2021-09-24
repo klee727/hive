@@ -1,14 +1,15 @@
 
-const Events = require('./events');
+const dotenv = require('dotenv')
+dotenv.config('.env')
+
+const { Events } = require('./events');
 
 const { logger } = require('./log')
 const { config } = require('./config')
 
 const { getPlugins } = require("./loader")
-const {
-    createScheduleTask,
-    applySchedule,
-} = require('./schedule')
+const { createScheduleTask, applySchedule } = require('./schedule')
+const { stateWrapper } = require('./state')
 
 async function main() {
 
@@ -17,17 +18,18 @@ async function main() {
 
     const context = {}
     const states = {}
-
-    plugins.forEach(p => { states[p.name] = {} })
+    plugins
+        .map(p => states[p.name] = stateWrapper(p.name, p.storage || 'memory'))
     const events = new Events(context, states)
     // sync init
-    const inits = plugins
+    await Promise.all(plugins
         .filter(p => p.onConfigUpdated)
         .map(p => p.onInit(context, states[p.name]))
-    await Promise.all(inits)
+    )
     // register
     logger.info("registering plugins ...")
-    plugins.forEach(p => events.register(p))
+    plugins
+        .forEach(p => events.register(p))
     // update config 
     logger.info("updating config ...")
     events.updateConfig(config)
